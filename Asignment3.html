@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Cart</title>
+  <style>
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Click "add to cart" to add item</h1>
+  
+  <div>
+    <span id="album1" 
+      onmouseover="showDetails(1)" 
+      onmouseout="hideDetails(1)">OK Computer</span>
+    <div id="details1"></div>
+    <div>Price: $10</div>
+    <button id="btn1" onclick="addToCart(10, 1)">Add Item 1 to Cart</button>
+  </div>
+  <br>
+  <div>
+    <span id="album2" 
+      onmouseover="showDetails(2)" 
+      onmouseout="hideDetails(2)">Hail to the Thief</span>
+    <div id="details2"></div>
+    <div>Price: $15</div>
+    <button id="btn2" onclick="addToCart(15, 2)">Add Item 2 to Cart</button>
+  </div>
+  <br>
+  <div>
+    <span id="album3" 
+      onmouseover="showDetails(3)" 
+      onmouseout="hideDetails(3)">In Rainbows</span>
+    <div id="details3"></div>
+    <div>Price: $20</div>
+    <button id="btn3" onclick="addToCart(20, 3)">Add Item 3 to Cart</button>
+  </div>
+  <br>
+  <div>
+    Cart Total: <span id="cartTotal">0</span>
+  </div>
+  <br>
+  <div>
+    Enter Payment Amount: 
+    <input id="payment" type="number">
+    <button onclick="confirmPurchase()">Confirm Purchase</button>
+  </div>
+  <div id="message"></div>
+
+  <script>
+    var total = 0;
+    var details = [
+      "",
+      "OK Computer is the third studio album by the English rock band Radiohead, released in 1997.",
+      "Hail to the Thief is the sixth album by Radiohead, released in 2003.",
+      "In Rainbows is the seventh album by Radiohead, released in 2007."
+    ];
+
+    function showDetails(n) {
+      document.getElementById('details'+n).innerText = details[n];
+    }
+    function hideDetails(n) {
+      document.getElementById('details'+n).innerText = "";
+    }
+    function addToCart(price, n) {
+      total += price;
+      document.getElementById('cartTotal').innerText = total;
+      document.getElementById('btn'+n).disabled = true;
+    }
+    function confirmPurchase() {
+      var pay = Number(document.getElementById('payment').value);
+      var msg = document.getElementById('message');
+      if (pay === total && total > 0) {
+        msg.innerHTML = '<span class="success">Purchase complete!</span>';
+      } else {
+        msg.innerHTML = '<span class="error">Payment is not equal to total price</span>';
+      }
+    }
+  </script>
+</body>
+</html>
